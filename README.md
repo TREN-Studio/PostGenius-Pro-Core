@@ -1,7 +1,7 @@
 # PostGenius-Pro-Core 🚀
 
 <p align="center">
-  <img src="https://trenstudio.com/assets/logo.png" alt="TREN Studio Logo" width="200"/>
+  <img src="logo.png" alt="TREN Studio Logo" width="200"/>
 </p>
 
 <p align="center">
