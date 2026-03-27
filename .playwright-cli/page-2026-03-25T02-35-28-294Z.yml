@@ -1,0 +1,160 @@
+- generic [ref=e3]:
+  - banner [ref=e5]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - link "Postgenius Pro Home" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - img [ref=e11]
+          - heading "Postgenius Pro" [level=1] [ref=e16]
+        - generic [ref=e18]:
+          - link "Member Login" [ref=e19] [cursor=pointer]:
+            - /url: /login
+          - link "Join Free" [ref=e20] [cursor=pointer]:
+            - /url: /signup
+      - navigation [ref=e22]:
+        - link "Magazine" [ref=e23] [cursor=pointer]:
+          - /url: /blog
+        - link "Reviews" [ref=e24] [cursor=pointer]:
+          - /url: /blog?type=review
+        - link "Comparisons" [ref=e25] [cursor=pointer]:
+          - /url: /blog?type=roundup
+        - link "Buying Guides" [ref=e26] [cursor=pointer]:
+          - /url: /blog?type=recipe
+        - link "About" [ref=e27] [cursor=pointer]:
+          - /url: /about
+        - link "Contact" [ref=e28] [cursor=pointer]:
+          - /url: /contact
+  - main [ref=e29]:
+    - generic [ref=e31]:
+      - generic [ref=e39]:
+        - generic [ref=e40]:
+          - paragraph [ref=e41]: Reader Membership
+          - heading "Welcome back to your reading list." [level=1] [ref=e42]
+          - paragraph [ref=e43]: Welcome back. Continue managing your reading list and tracked products.
+          - generic [ref=e44]:
+            - generic [ref=e45]: Saved Reviews
+            - generic [ref=e46]: Tracked Products
+            - generic [ref=e47]: Curated Alerts
+        - generic [ref=e50]:
+          - paragraph [ref=e51]: Membership Benefits
+          - heading "A lighter, more personal layer for readers who return often." [level=2] [ref=e52]
+          - list [ref=e53]:
+            - listitem [ref=e54]: Save reviews and buying guides for later.
+            - listitem [ref=e55]: Track favorite products across many categories.
+            - listitem [ref=e56]: Follow a calmer, magazine-led shopping workflow.
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - button "Member Login" [ref=e61] [cursor=pointer]
+          - button "Join Free" [ref=e62] [cursor=pointer]
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - generic [ref=e65]: Email Address
+            - textbox "Email Address" [ref=e66]:
+              - /placeholder: you@example.com
+          - generic [ref=e67]:
+            - generic [ref=e68]: Password
+            - textbox "Password" [ref=e69]
+          - button "Continue to Membership" [ref=e70] [cursor=pointer]
+        - generic [ref=e75]: Or continue with
+        - button "Continue with Google" [ref=e76] [cursor=pointer]
+        - generic [ref=e77]:
+          - paragraph [ref=e78]: Editorial workspace access stays restricted to the owner account.
+          - link "Back to the Magazine" [ref=e79] [cursor=pointer]:
+            - /url: /
+  - contentinfo [ref=e81]:
+    - generic [ref=e85]:
+      - generic [ref=e86]:
+        - generic [ref=e87]:
+          - paragraph [ref=e88]: Postgenius Pro
+          - heading "Trusted reviews, comparisons, and shopping guides for every Amazon niche." [level=2] [ref=e89]
+          - paragraph [ref=e90]: A warm, easy-to-browse editorial platform built for kitchen, electronics, home, office, lifestyle, and every other category readers compare on Amazon.
+          - generic [ref=e91]:
+            - link "Explore the Magazine" [ref=e92] [cursor=pointer]:
+              - /url: /blog
+            - link "Reader Membership" [ref=e93] [cursor=pointer]:
+              - /url: /pricing
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - heading "Magazine" [level=3] [ref=e96]
+            - generic [ref=e97]:
+              - link "Magazine" [ref=e98] [cursor=pointer]:
+                - /url: /blog
+              - link "Trusted Reviews" [ref=e99] [cursor=pointer]:
+                - /url: /blog?type=review
+              - link "Comparisons" [ref=e100] [cursor=pointer]:
+                - /url: /blog?type=roundup
+              - link "Buying Guides" [ref=e101] [cursor=pointer]:
+                - /url: /blog?type=recipe
+              - link "Latest Stories" [ref=e102] [cursor=pointer]:
+                - /url: /blog
+          - generic [ref=e103]:
+            - heading "Categories" [level=3] [ref=e104]
+            - generic [ref=e105]:
+              - link "Kitchen Gear" [ref=e106] [cursor=pointer]:
+                - /url: /blog?tag=Kitchen%20Gear
+              - link "Electronics" [ref=e107] [cursor=pointer]:
+                - /url: /blog?tag=Electronics
+              - link "Home Essentials" [ref=e108] [cursor=pointer]:
+                - /url: /blog?tag=Home%20Essentials
+              - link "Best Deals" [ref=e109] [cursor=pointer]:
+                - /url: /blog?tag=Best%20Deals
+              - link "Product Reviews" [ref=e110] [cursor=pointer]:
+                - /url: /blog?tag=Product%20Reviews
+          - generic [ref=e111]:
+            - heading "Popular Guides" [level=3] [ref=e112]
+            - generic [ref=e113]:
+              - link "Best Kitchen Picks" [ref=e114] [cursor=pointer]:
+                - /url: /blog?tag=Kitchen%20Gear
+              - link "Top Electronics" [ref=e115] [cursor=pointer]:
+                - /url: /blog?tag=Electronics
+              - link "Home Buying Guides" [ref=e116] [cursor=pointer]:
+                - /url: /blog?tag=Home%20Essentials
+              - link "Editor Favorites" [ref=e117] [cursor=pointer]:
+                - /url: /blog?type=roundup
+              - link "Recently Updated" [ref=e118] [cursor=pointer]:
+                - /url: /blog
+          - generic [ref=e119]:
+            - heading "Membership" [level=3] [ref=e120]
+            - generic [ref=e121]:
+              - link "Join Free" [ref=e122] [cursor=pointer]:
+                - /url: /login?mode=signup
+              - link "Member Login" [ref=e123] [cursor=pointer]:
+                - /url: /login
+              - link "Reader Membership" [ref=e124] [cursor=pointer]:
+                - /url: /pricing
+              - link "FAQ" [ref=e125] [cursor=pointer]:
+                - /url: /faq
+              - link "Contact Us" [ref=e126] [cursor=pointer]:
+                - /url: /contact
+          - generic [ref=e127]:
+            - heading "Support & Legal" [level=3] [ref=e128]
+            - generic [ref=e129]:
+              - link "About" [ref=e130] [cursor=pointer]:
+                - /url: /about
+              - link "Features" [ref=e131] [cursor=pointer]:
+                - /url: /features
+              - link "Affiliate Disclosure" [ref=e132] [cursor=pointer]:
+                - /url: /affiliate-disclosure
+              - link "Privacy Policy" [ref=e133] [cursor=pointer]:
+                - /url: /privacy-policy
+              - link "Terms of Service" [ref=e134] [cursor=pointer]:
+                - /url: /terms
+      - generic [ref=e135]:
+        - generic [ref=e136]:
+          - paragraph [ref=e137]: Connect with us
+          - generic [ref=e138]:
+            - link "Instagram" [ref=e139] [cursor=pointer]:
+              - /url: https://www.instagram.com/
+              - img [ref=e140]
+            - link "Facebook" [ref=e143] [cursor=pointer]:
+              - /url: https://www.facebook.com/
+              - img [ref=e144]
+            - link "LinkedIn" [ref=e146] [cursor=pointer]:
+              - /url: https://www.linkedin.com/
+              - img [ref=e147]
+            - link "YouTube" [ref=e151] [cursor=pointer]:
+              - /url: https://www.youtube.com/
+              - img [ref=e152]
+        - generic [ref=e155]:
+          - paragraph [ref=e156]: Independent product reviews, comparisons, and practical buying guides designed to help readers choose with confidence.
+          - paragraph [ref=e157]: © 2026 Postgenius Pro. All rights reserved.

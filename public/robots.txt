@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /features
+Allow: /pricing
+Allow: /blog
+Allow: /contact
+Allow: /faq
+Allow: /privacy-policy
+Allow: /terms
+Allow: /affiliate-disclosure
+Allow: /author/
+
+Disallow: /generator
+Disallow: /my-articles
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /settings
+Disallow: /analytics
+Disallow: /support
+Disallow: /login
+Disallow: /success
+Disallow: /api/
+Disallow: /*.json$
+
+Sitemap: https://postgeniuspro.com/sitemap.xml

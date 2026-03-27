@@ -1,0 +1,12 @@
+# Prevent directory listing
+Options -Indexes
+
+# Allow access to image files
+<FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
+    Allow from all
+</FilesMatch>
+
+# Deny access to other files (like .php scripts if someone manages to upload one)
+<FilesMatch "\.(php|pl|py|jsp|asp|htm|html|sh|cgi)$">
+    Deny from all
+</FilesMatch>

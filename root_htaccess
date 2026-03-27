@@ -1,0 +1,120 @@
+# Enable rewrite engine
+RewriteEngine On
+
+# ============================================================================
+# API ROUTES - Handle before SPA routing
+# ============================================================================
+
+# Allow direct access to API endpoints (upload.php, health.php)
+RewriteCond %{REQUEST_URI} ^/api/
+RewriteRule ^ - [L]
+
+# Handle React Routing below
+# (Removed /blog/ exclusion as it is part of the SPA)
+
+# ============================================================================
+# REACT SPA ROUTING
+# ============================================================================
+
+# If a directory or a file exists, serve it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+
+# Otherwise, redirect all requests to index.html for client-side routing
+RewriteRule ^ index.html [QSA,L]
+
+# ============================================================================
+# SECURITY HEADERS
+# ============================================================================
+
+Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "DENY"
+Header set X-XSS-Protection "1; mode=block"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+# Enable CORS (allows your React app to make requests)
+Header set Access-Control-Allow-Origin "*"
+
+# ============================================================================
+# CACHING RULES
+# ============================================================================
+
+# No caching for HTML files (ensures fresh SPA loads)
+<FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+</FilesMatch>
+
+# Long-term caching for static assets
+<FilesMatch "\.(js|css|png|jpg|jpeg|gif|ico|svg|woff2|woff|ttf|webp)$">
+    Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>
+
+# ============================================================================
+# COMPRESSION
+# ============================================================================
+
+# Compress text, html, javascript, css, xml
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+</IfModule>
+
+# ============================================================================
+# SECURITY - BLOCK ACCESS TO SENSITIVE FILES
+# ============================================================================
+
+# Block access to hidden files (starting with .)
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block access to configuration and package files
+<FilesMatch "(package\.json|package-lock\.json|yarn\.lock|composer\.json|composer\.lock|\.git|\.env|\.config|\.htaccess)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Prevent directory browsing
+Options -Indexes
+
+# ============================================================================
+# PHP SECURITY
+# ============================================================================
+
+# Disable PHP execution in uploads directory (handled by uploads/.htaccess)
+# This is a backup in case the uploads/.htaccess is missing
+
+# ============================================================================
+# MIME TYPES
+# ============================================================================
+
+<IfModule mod_mime.c>
+    # JavaScript
+    AddType application/javascript js
+    AddType application/json json
+    
+    # Images
+    AddType image/jpeg jpg jpeg
+    AddType image/png png
+    AddType image/gif gif
+    AddType image/webp webp
+    AddType image/svg+xml svg
+    
+    # Fonts
+    AddType font/woff2 woff2
+    AddType font/woff woff
+    AddType font/ttf ttf
+</IfModule>

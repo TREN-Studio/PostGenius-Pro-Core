@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <title>Trusted Reviews, Comparisons, and Buying Guides | Postgenius Pro</title>
+  <meta name="description" content="Trusted product reviews, clear comparisons, and practical buying guides for smarter shopping decisions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+    as="style">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2960047800714307"
+    crossorigin="anonymous"></script>
+  <script>
+    window.adsbygoogle = window.adsbygoogle || [];
+    window.addEventListener('load', function () {
+      try {
+        window.adsbygoogle.push({
+          google_ad_client: 'ca-pub-2960047800714307',
+          enable_page_level_ads: true
+        });
+      } catch (error) {
+        console.warn('AdSense auto-ads init skipped:', error);
+      }
+    });
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-510584181"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-510584181');
+  </script>
+  <script defer src="/admin-agent.js?v=20260317-spotlightfix"></script>
+  <style>
+    :root {
+      /* --- DEEP SPACE THEME (Elon Musk / SpaceX Aesthetic) --- */
+      --color-background: #000000; /* True Void Black */
+      --color-card-bg: rgba(20, 20, 30, 0.4); /* Glassy Void */
+      --color-text-primary: #e2e8f0;
+      --color-text-secondary: #94a3b8;
+      --color-text-headings: #ffffff;
+
+      --color-accent: #00f3ff; /* Electric Cyan */
+      --color-accent-glow: rgba(0, 243, 255, 0.4);
+      
+      --color-cta: #ffffff; /* Stark White CTA for contrast */
+      --color-cta-hover: #e2e8f0;
+      
+      --color-border: rgba(255, 255, 255, 0.08);
+
+      --font-sans: 'Inter', sans-serif;
+      --font-heading: 'Orbitron', sans-serif; /* Futuristic Heading */
+      --font-mono: 'Rajdhani', monospace;
+    }
+
+    /* Reset & Base */
+    html {
+      -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--color-background) !important;
+      font-family: var(--font-sans);
+      color: var(--color-text-primary);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      /* Deep Space Gradient Mesh */
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.1), transparent 40%),
+        radial-gradient(circle at 0% 100%, rgba(99, 102, 241, 0.1), transparent 40%);
+      background-attachment: fixed;
+    }
+
+    /* Stars Animation */
+    @keyframes moveStars {
+      from { transform: translateY(0); }
+      to { transform: translateY(-2000px); }
+    }
+
+    /* Modern UI Components - Glassmorphism */
+    .bg-card-bg {
+      background: var(--color-card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--color-border);
+    }
+
+    .public-editorial-surface .bg-card-bg {
+      background: var(--color-card-bg) !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border-color: var(--color-border) !important;
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
+    }
+
+    .public-editorial-surface .chameleon-text {
+      background: none !important;
+      color: #7a477a !important;
+      -webkit-text-fill-color: #7a477a !important;
+      text-shadow: none !important;
+    }
+
+    .public-editorial-surface .logo-glow {
+      filter: none !important;
+    }
+
+    .public-editorial-surface .text-text-primary {
+      color: var(--color-text-primary) !important;
+    }
+
+    .public-editorial-surface .text-text-secondary {
+      color: var(--color-text-secondary) !important;
+    }
+
+    .public-editorial-surface .text-text-headings {
+      color: var(--color-text-headings) !important;
+    }
+
+    .public-editorial-surface .gradient-border-box,
+    .public-editorial-surface .gradient-border-box-inner {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    /* Primary CTA - The "Stark" Look */
+    .cta-button {
+      background: white;
+      color: black;
+      font-weight: 700;
+      border-radius: 9999px; /* Pill shape */
+      padding: 1rem 2.5rem;
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      border: none;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      letter-spacing: 0.1em;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button:hover:not(:disabled) {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+    }
+    
+    .cta-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .secondary-button {
+      background-color: transparent;
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border);
+      font-weight: 500;
+      border-radius: 9999px;
+      padding: 0.75rem 1.75rem;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .secondary-button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+
+    .public-editorial-surface .cta-button {
+      background: #833f7a;
+      color: #fff;
+      box-shadow: 0 16px 34px rgba(131, 63, 122, 0.18);
+      text-transform: none;
+      letter-spacing: 0;
+      font-family: 'Manrope', var(--font-sans);
+      padding: 1rem 2.1rem;
+    }
+
+    .public-editorial-surface .cta-button:hover:not(:disabled) {
+      background: #74356d;
+      box-shadow: 0 18px 38px rgba(131, 63, 122, 0.22);
+      transform: translateY(-1px);
+    }
+
+    .public-editorial-surface .secondary-button {
+      background-color: #fff;
+      color: #5b3061;
+      border-color: rgba(122, 71, 122, 0.2);
+      font-family: 'Manrope', var(--font-sans);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .public-editorial-surface .secondary-button:hover {
+      background-color: #fdf4fa;
+      border-color: rgba(122, 71, 122, 0.34);
+      color: #5b3061;
+    }
+
+    .app-input {
+      background: rgba(10, 10, 15, 0.6);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-primary);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      transition: all 0.2s ease;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    .app-input:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      background: rgba(10, 10, 20, 0.9);
+      box-shadow: 0 0 0 2px var(--color-accent-glow);
+    }
+    
+    .app-input::-moz-placeholder {
+      color: #475569;
+    }
+    
+    .app-input::placeholder {
+      color: #475569;
+    }
+
+    .public-editorial-surface .app-input {
+      background: #fff;
+      border-color: rgba(122, 71, 122, 0.16);
+      color: #402247;
+    }
+
+    .public-editorial-surface .app-input:focus {
+      background: #fff;
+      border-color: #7a477a;
+      box-shadow: 0 0 0 3px rgba(122, 71, 122, 0.14);
+    }
+
+    /* Details/Summary */
+    .config-section {
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      background-color: rgba(10, 10, 15, 0.3);
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      transition: background-color 0.2s;
+    }
+
+    .config-section[open] {
+      background-color: rgba(20, 20, 30, 0.5);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .config-section summary {
+      padding: 1rem 1.25rem;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .config-section summary:hover {
+      color: var(--color-accent);
+    }
+
+    .details-content {
+      padding: 1.25rem;
+      border-top: 1px solid var(--color-border);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    /* Utility Animations */
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--color-accent-glow); }
+      50% { opacity: 0.5; box-shadow: 0 0 20px var(--color-accent-glow); }
+    }
+    
+    .animate-pulse-glow {
+        animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes gradient-x {
+        0%, 100% { background-position: left center; }
+        50% { background-position: right center; }
+    }
+    .animate-gradient-x {
+        animation: gradient-x 15s ease infinite;
+        background-size: 200% auto;
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+  </style>
+  <script type="module" crossorigin src="/pgp-assets/index-C2h6cZyv.js"></script>
+  <link rel="stylesheet" crossorigin href="/pgp-assets/index-CuwTkc9c.css">
+</head>
+
+<body>
+  <div id="root"></div>
+
+</body>
+
+</html>

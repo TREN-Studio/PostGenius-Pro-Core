@@ -1,0 +1,66 @@
+{
+  "name": "postgenius-pro-3.16",
+  "private": true,
+  "version": "3.16.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@google/genai": "^1.24.0",
+    "@hashbrownai/core": "^0.4.1",
+    "@hashbrownai/react": "^0.4.1",
+    "@react-three/drei": "^9.99.0",
+    "@react-three/fiber": "^8.15.16",
+    "@supabase/supabase-js": "^2.45.0",
+    "ajv": "^8.17.1",
+    "buffer": "^6.0.3",
+    "crypto": "^1.0.1",
+    "express": "^5.1.0",
+    "fs": "^0.0.1-security",
+    "lucide-react": "^0.555.0",
+    "path": "^0.12.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
+    "react-router-dom": "^6.25.1",
+    "three": "^0.160.0",
+    "vite-react-ssg": "^0.8.9"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/three": "^0.160.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "react-snap": "^1.23.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0",
+    "vite-ssg": "^28.2.2"
+  },
+  "reactSnap": {
+    "source": "dist",
+    "include": [
+      "/",
+      "/pricing",
+      "/about",
+      "/blog",
+      "/contact",
+      "/faq",
+      "/privacy",
+      "/terms",
+      "/affiliate-disclosure"
+    ],
+    "minifyHtml": {
+      "collapseWhitespace": true,
+      "removeComments": true
+    },
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ]
+  }
+}

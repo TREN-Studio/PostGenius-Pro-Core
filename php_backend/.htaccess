@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteRule ^nvidia/generate-images$ nvidia/generate-images/index.php [L,QSA]
+  RewriteRule ^nvidia/validate-image$ nvidia/validate-image/index.php [L,QSA]
+  RewriteRule ^pinterest/oauth-config$ pinterest/oauth-config/index.php [L,QSA]
+  RewriteRule ^pinterest/exchange-token$ pinterest/exchange-token/index.php [L,QSA]
+  RewriteRule ^automation/setup$ automation/setup.php [L,QSA]
+  RewriteRule ^automation/status$ automation/status.php [L,QSA]
+  RewriteRule ^automation/admin-agent-status$ automation/admin_agent_status.php [L,QSA]
+  RewriteRule ^automation/admin-agent-tick$ automation/admin_agent_tick.php [L,QSA]
+  RewriteRule ^automation/agent-tick$ automation/agent_tick.php [L,QSA]
+  RewriteRule ^automation/agent-brain$ automation/agent_brain_tick.php [L,QSA]
+  RewriteRule ^automation/hourly-autopublish$ automation/hourly_autopublish.php [L,QSA]
+  RewriteRule ^automation/jobs$ automation/jobs.php [L,QSA]
+  RewriteRule ^automation/run-worker$ automation/run_worker.php [L,QSA]
+  RewriteRule ^automation/generate-review$ automation/generate_review.php [L,QSA]
+</IfModule>

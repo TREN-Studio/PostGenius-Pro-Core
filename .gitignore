@@ -1,0 +1,77 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables
+.env
+backend/.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# ========================================
+# TREN Studio: Security & Privacy Protocol
+# ========================================
+
+# Do NOT commit raw API responses, temporary files, or cached endpoints
+tmp_*/
+tmp-*.png
+tmp_*.json
+tmp_*.txt
+tmp_*.php
+tmp_*.js
+tmp_*.mjs
+tmp_*.html
+tmp_*.b64
+
+# Exclude sensitive databases & backups
+backups/
+*.sqlite
+*.db
+supabase/
+
+# Ignore Playwright testing artifacts
+test-results/
+output/
+
+# Extra protection against accidental secret leaks
+*.pem
+*.pub
+*.key
+id_rsa*
+id_ed25519*
+id_amazcraft*
+.ssh/
+.env
+.env.*
+!.env.example
+*.session
+*.log
+.cf-postgeniuspro-image-api/

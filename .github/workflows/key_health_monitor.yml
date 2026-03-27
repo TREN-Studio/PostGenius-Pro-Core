@@ -1,0 +1,145 @@
+# 🏥 Key Health Monitor - Ethical Self-Healing Vault
+# 
+# What this does (ETHICALLY):
+# ✅ Tests YOUR OWN keys to see which ones still work
+# ✅ Removes dead/expired keys from your Gist automatically
+# ✅ Sends you a report of key health statistics
+# ❌ Does NOT scrape keys from public repos (illegal!)
+#
+# Setup:
+# 1. Add GitHub Personal Access Token to repo secrets as GH_TOKEN
+# 2. Add HuggingFace API key to secrets as HF_TEST_KEY (for validation)
+# 3. Update GIST_ID below with your Gist ID
+
+name: 🏥 Key Health Monitor
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  validate_keys:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Validate and Clean Keys
+        env:
+          GIST_ID: ${{ secrets.GIST_ID || '9213e00fcd97a2b751cea6da2701ae4f' }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          #!/bin/bash
+          set -e
+
+          echo "🏥 [Health Monitor] Starting key validation..."
+
+          # Fetch current keys from Gist
+          GIST_RAW_URL="https://gist.githubusercontent.com/larbilife/${GIST_ID}/raw/keys.json"
+          echo "📡 Fetching keys from: $GIST_RAW_URL"
+          
+          curl -s "$GIST_RAW_URL" > current_keys.json
+          
+          # Parse and validate each key
+          echo "🔍 Validating keys..."
+          
+          # Install jq for JSON parsing
+          sudo apt-get update && sudo apt-get install -y jq
+          
+          # Extract HuggingFace keys
+          HF_KEYS=$(jq -r '.huggingface[]' current_keys.json 2>/dev/null || echo "")
+          
+          VALID_HF_KEYS=()
+          INVALID_HF_KEYS=()
+          
+          # Test each HuggingFace key
+          for key in $HF_KEYS; do
+            echo "Testing key: ${key:0:10}..."
+            
+            # Test key with HF API
+            response=$(curl -s -o /dev/null -w "%{http_code}" \
+              -H "Authorization: Bearer $key" \
+              https://huggingface.co/api/whoami)
+            
+            if [ "$response" = "200" ]; then
+              echo "✅ Valid: ${key:0:10}..."
+              VALID_HF_KEYS+=("$key")
+            else
+              echo "❌ Invalid/Expired: ${key:0:10}... (HTTP $response)"
+              INVALID_HF_KEYS+=("$key")
+            fi
+            
+            sleep 1  # Rate limiting
+          done
+          
+          echo ""
+          echo "📊 Health Report:"
+          echo "  Valid Keys: ${#VALID_HF_KEYS[@]}"
+          echo "  Invalid Keys: ${#INVALID_HF_KEYS[@]}"
+          
+          # Create updated keys.json with only valid keys
+          if [ ${#INVALID_HF_KEYS[@]} -gt 0 ]; then
+            echo "🧹 Cleaning dead keys from Gist..."
+            
+            # Build new JSON with valid keys only
+            jq --argjson valid_hf "$(printf '%s\n' "${VALID_HF_KEYS[@]}" | jq -R . | jq -s .)" \
+               '.huggingface = $valid_hf' current_keys.json > cleaned_keys.json
+            
+            # Update Gist via GitHub API
+            curl -X PATCH \
+              -H "Authorization: token $GH_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/gists/${GIST_ID} \
+              -d @- <<EOF
+          {
+            "files": {
+              "keys.json": {
+                "content": $(cat cleaned_keys.json | jq -c .)
+              }
+            }
+          }
+          EOF
+            
+            echo "✅ Gist updated with clean keys"
+          else
+            echo "✅ All keys are healthy! No cleanup needed."
+          fi
+          
+          # Create artifact report
+          echo "📝 Creating health report..."
+          cat > health_report.md <<EOF
+          # Key Vault Health Report
+          **Date:** $(date)
+          
+          ## Summary
+          - 🟢 **Valid Keys:** ${#VALID_HF_KEYS[@]}
+          - 🔴 **Invalid Keys:** ${#INVALID_HF_KEYS[@]}
+          - 📊 **Health Score:** $(( ${#VALID_HF_KEYS[@]} * 100 / (${#VALID_HF_KEYS[@]} + ${#INVALID_HF_KEYS[@]}) ))%
+          
+          ## Actions Taken
+          $(if [ ${#INVALID_HF_KEYS[@]} -gt 0 ]; then echo "- Removed ${#INVALID_HF_KEYS[@]} expired keys from Gist"; else echo "- No cleanup needed"; fi)
+          
+          ## Next Steps
+          - Add new legitimate keys to your Gist if vault is running low
+          - Check [Setup Guide](https://github.com/larbilife/postgenius-pro-3.15/blob/main/KEY_SYNC_SETUP.md)
+          EOF
+          
+          cat health_report.md
+
+      - name: Upload Health Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: key-health-report
+          path: health_report.md
+          retention-days: 30
+
+      - name: Notify on Failure
+        if: failure()
+        run: |
+          echo "❌ Key health check failed! Check logs above."
