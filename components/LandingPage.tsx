@@ -4,6 +4,7 @@ import type { Article, Blueprint } from '../types';
 import { getPublishedArticles } from '../services/articleService';
 import LoadingSpinner from './LoadingSpinner';
 import Meta from './Meta';
+import { CinematicShowcase } from './CinematicShowcase';
 
 interface LandingPageProps {
     onStartCreate?: () => void;
@@ -336,8 +337,15 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                 description="Discover trusted product reviews, practical buying guides, and clearer comparisons across kitchen gear, electronics, home essentials, and every niche worth shopping well."
             />
 
-            <div className="space-y-16 pb-16 sm:space-y-20 sm:pb-24">
-                <section className="relative overflow-hidden rounded-[3rem] border border-[#ead9e5] bg-gradient-to-r from-[#f5b4cf] via-[#b3baf2] to-[#88d8f8] shadow-[0_32px_90px_rgba(105,59,111,0.14)]">
+            {/* Neural Pulse Cinematic Horizontal Showcase */}
+            {homepageData.totalStories > 0 && (
+                <div className="mb-20">
+                    <CinematicShowcase articles={homepageData.quickReads.concat(homepageData.featuredStories, homepageData.discoveryStories)} />
+                </div>
+            )}
+
+            <div className="space-y-16 pb-16 sm:space-y-20 sm:pb-24 px-6 sm:px-8 xl:px-14">
+                <section className="relative overflow-hidden rounded-[3rem] border border-[#ead9e5] bg-gradient-to-r from-[#f5b4cf] via-[#b3baf2] to-[#88d8f8] shadow-[0_32px_90px_rgba(105,59,111,0.14)] mt-10">
                     <div className="absolute -left-20 top-28 h-56 w-56 rounded-full bg-white/18" />
                     <div className="absolute left-[34%] top-10 h-24 w-24 rounded-t-full bg-white/20" />
                     <div className="absolute right-14 top-20 h-40 w-40 rounded-full bg-white/14" />
