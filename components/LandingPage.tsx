@@ -399,9 +399,6 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                     <Link to="/blog" className="inline-flex items-center rounded-full bg-[#7a477a] px-7 py-4 text-base font-semibold text-white shadow-[0_16px_34px_rgba(122,71,122,0.22)] transition hover:bg-[#693366]">
                                         Explore the Magazine
                                     </Link>
-                                    <Link to="/pricing" className="inline-flex items-center rounded-full border border-white/65 bg-white/12 px-7 py-4 text-base font-semibold text-white transition hover:bg-white/20">
-                                        Join Free Membership
-                                    </Link>
                                 </div>
                                 <div className="mt-8 grid gap-3 sm:grid-cols-3">
                                     {[

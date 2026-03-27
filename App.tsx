@@ -1,4 +1,4 @@
-﻿
+
 import React, { useState, useCallback, useEffect, useMemo, useLayoutEffect, useRef } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
@@ -3415,9 +3415,9 @@ return (
                 <Route path="/" element={<LandingPage onStartCreate={handleStart} aiConfig={appData.aiConfig} />} />
 
                 <Route path="/generator" element={
-                    <ProtectedRoute user={user}>
+                    <AdminRoute userRole={userRole}>
                         <div className="space-y-8">{renderCurrentStep()}</div>
-                    </ProtectedRoute>
+                    </AdminRoute>
                 } />
 
                 <Route path="/blog" element={<BlogPage session={session} onEdit={handleEditArticle} />} />
