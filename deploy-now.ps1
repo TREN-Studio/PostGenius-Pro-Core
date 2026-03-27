@@ -44,6 +44,11 @@ $files = @(
     "services/pinterestOAuthService.ts",
     "components/NVIDIAProductImageGenerator.tsx",
     "components/AdminDashboard.tsx",
+    "components/CinematicShowcase.tsx",
+    "components/LandingPage.tsx",
+    "components/Header.tsx",
+    "App.tsx",
+    "package.json",
     "backend/src/server.ts",
     "backend/.env.example"
 )
@@ -102,6 +107,12 @@ Write-Host "  → Uploading React Components..." -ForegroundColor Magenta
 Write-Host "    scp components/NVIDIA*.tsx..." @INFO
 scp -P $SSH_PORT "components/NVIDIAProductImageGenerator.tsx" "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/components/" 2>$null
 scp -P $SSH_PORT "components/AdminDashboard.tsx" "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/components/" 2>$null
+scp -P $SSH_PORT "components/CinematicShowcase.tsx" "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/components/" 2>$null
+scp -P $SSH_PORT "components/LandingPage.tsx" "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/components/" 2>$null
+scp -P $SSH_PORT "components/Header.tsx" "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/components/" 2>$null
+scp -P $SSH_PORT "App.tsx" "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/" 2>$null
+scp -P $SSH_PORT "package.json" "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/" 2>$null
+scp -P $SSH_PORT "package-lock.json" "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/" 2>$null
 Write-Host "  ✅ Components uploaded" @SUCCESS
 
 # Server
