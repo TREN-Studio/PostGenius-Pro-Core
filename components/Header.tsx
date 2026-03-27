@@ -225,7 +225,7 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick, session, userRole, userPro
 
         return (
             <div className={`flex ${isMobile ? 'flex-col' : 'items-center'} gap-2`}>
-                <Link to="/login" onClick={closeMobileMenu} className="px-4 py-2 rounded-full border border-border-color text-sm text-text-primary hover:border-accent/50">Admin Access</Link>
+                <Link to="/signup" onClick={closeMobileMenu} className="px-4 py-2 rounded-full bg-[#fdc754] text-black text-sm font-semibold hover:brightness-105">Join Free</Link>
             </div>
         );
     };
