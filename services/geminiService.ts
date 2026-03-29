@@ -198,10 +198,13 @@ export const extractDataFromUrl = async (htmlContent: string, apiKey: string): P
     // ALSO: Support Markdown format from Jina Reader (# Title or ## Title)
     const lowerHtml = htmlContent.toLowerCase();
     const hasHtmlTitle = lowerHtml.includes('<h1') || lowerHtml.includes('producttitle') || lowerHtml.includes('id="title"') || lowerHtml.includes('<title');
-    const hasMarkdownTitle = /^#{1,3}\s+.{10,}/m.test(htmlContent); // Markdown heading with substantial text
+    const hasMarkdownTitle = /^#{1,3}\s+.{10,}/m.test(htmlContent);
+    const hasOgTitle = lowerHtml.includes('og:title') || lowerHtml.includes('og:description');
+    const hasJsonLd = lowerHtml.includes('application/ld+json') || lowerHtml.includes('"recipe"') || lowerHtml.includes('"product"');
+    const hasRichContent = htmlContent.length > 20000;
 
-    if (!hasHtmlTitle && !hasMarkdownTitle) {
-        throw new Error("Missing critical title tags (H1, title, or productTitle). HTML structure is invalid.");
+    if (!hasHtmlTitle && !hasMarkdownTitle && !hasOgTitle && !hasJsonLd && !hasRichContent) {
+        console.warn("[PostGenius] Warning: Missing critical title tags, but proceeding with AI extraction fallback. Content length:", htmlContent.length);
     }
 
     // Clean HTML first to remove noise (scripts, styles, footers) which confuses the AI

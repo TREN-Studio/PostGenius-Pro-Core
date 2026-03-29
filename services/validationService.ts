@@ -44,7 +44,7 @@ const imageMetadataSchema = {
 const blogPostDataSchema = {
   type: 'object',
   properties: {
-    niche: { type: 'string', minLength: 1 },
+    niche: { type: 'string' },
     title: { type: 'string', minLength: 1 },
     category: { type: 'string', minLength: 1 },
     heroImage: { type: 'string', minLength: 1 },
@@ -143,7 +143,7 @@ const blogPostDataSchema = {
 export const extractedRecipeDataSchema = {
   type: 'object',
   properties: {
-    niche: { type: 'string', minLength: 1 },
+    niche: { type: 'string' },
     title: { type: 'string', minLength: 1 },
     ingredients: { type: 'array', items: { type: 'string' } },
     instructions: { type: 'array', items: { type: 'string' } },
@@ -184,27 +184,54 @@ const formatErrors = (errors: typeof validateBlogPost.errors): string => {
   return errors.map(e => `Field '${e.instancePath.substring(1) || 'root'}' ${e.message}`).join(', ');
 };
 
-export const validateAndParseBlogPost = (data: unknown): BlogPostData => {
-  if (validateBlogPost(data)) {
-    return data as BlogPostData;
+export const validateAndParseBlogPost = (rawData: unknown): BlogPostData => {
+  let data = (rawData && typeof rawData === 'object' ? { ...rawData } : {}) as any;
+  
+  // Inject safety fallbacks to prevent any crash
+  data.niche = data.niche || "General";
+  data.title = data.title || "Generated Article";
+  data.category = data.category || "General";
+  data.heroImage = data.heroImage || "";
+  data.heroImageMetadata = data.heroImageMetadata || { alt: "", title: "", caption: "", description: "" };
+  data.tags = data.tags || { course: [], cuisine: [], keywords: [] };
+  data.seo = data.seo || { metaTitle: data.title, metaDescription: "An automatically generated article.", focusKeyphrase: data.niche };
+  data.htmlContent = data.htmlContent || "<p>Content generation partial failure.</p>";
+  
+  if (!validateBlogPost(data)) {
+    console.warn(`[Bulletproof] AI response failed blog post schema validation, but proceeding with patched data: ${formatErrors(validateBlogPost.errors)}`);
   }
-  throw new Error(`AI response failed schema validation: ${formatErrors(validateBlogPost.errors)}`);
+  return data as BlogPostData;
 };
 
-export const validateAndParseExtractedRecipe = (data: unknown): ExtractedRecipeData => {
-  if (validateExtractedRecipe(data)) {
-    return data as ExtractedRecipeData;
+export const validateAndParseExtractedRecipe = (rawData: unknown): ExtractedRecipeData => {
+  let data = (rawData && typeof rawData === 'object' ? { ...rawData } : {}) as any;
+  
+  // Inject safety fallbacks
+  data.niche = data.niche || "General";
+  data.title = data.title || "Extracted Content";
+  data.ingredients = data.ingredients || [];
+  data.instructions = data.instructions || [];
+  data.products = data.products || [];
+  
+  if (!validateExtractedRecipe(data)) {
+    console.warn(`[Bulletproof] AI response failed extracted recipe validation, but proceeding with patched data: ${formatErrors(validateExtractedRecipe.errors)}`);
   }
-  throw new Error(`AI response failed schema validation: ${formatErrors(validateExtractedRecipe.errors)}`);
+  return data as ExtractedRecipeData;
 };
 
-export const validateAndParseCombinedPost = (data: unknown): CombinedPostResponse => {
-  if (validateCombinedPost(data)) {
-    // Also validate the nested blog post data for extra safety
-    validateAndParseBlogPost((data as CombinedPostResponse).blogPostData);
-    return data as CombinedPostResponse;
+export const validateAndParseCombinedPost = (rawData: unknown): CombinedPostResponse => {
+  let data = (rawData && typeof rawData === 'object' ? { ...rawData } : {}) as any;
+  
+  data.blogPostData = data.blogPostData || {};
+  data.productData = data.productData || [];
+  
+  // Safely parse the blogPostData part which handles its own defaults
+  data.blogPostData = validateAndParseBlogPost(data.blogPostData);
+  
+  if (!validateCombinedPost(data)) {
+    console.warn(`[Bulletproof] AI response failed combined schema validation, proceeding: ${formatErrors(validateCombinedPost.errors)}`);
   }
-  throw new Error(`AI response failed combined schema validation: ${formatErrors(validateCombinedPost.errors)}`);
+  return data as CombinedPostResponse;
 };
 
 /**

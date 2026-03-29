@@ -14,8 +14,6 @@
 name: 🏥 Key Health Monitor
 
 on:
-  schedule:
-    - cron: '0 */6 * * *'  # Every 6 hours
   workflow_dispatch:  # Manual trigger
 
 jobs:
@@ -113,6 +111,12 @@ jobs:
           
           # Create artifact report
           echo "📝 Creating health report..."
+          TOTAL_KEYS=$(( ${#VALID_HF_KEYS[@]} + ${#INVALID_HF_KEYS[@]} ))
+          HEALTH_SCORE=0
+          if [ "$TOTAL_KEYS" -gt 0 ]; then
+            HEALTH_SCORE=$(( ${#VALID_HF_KEYS[@]} * 100 / TOTAL_KEYS ))
+          fi
+
           cat > health_report.md <<EOF
           # Key Vault Health Report
           **Date:** $(date)
@@ -120,7 +124,7 @@ jobs:
           ## Summary
           - 🟢 **Valid Keys:** ${#VALID_HF_KEYS[@]}
           - 🔴 **Invalid Keys:** ${#INVALID_HF_KEYS[@]}
-          - 📊 **Health Score:** $(( ${#VALID_HF_KEYS[@]} * 100 / (${#VALID_HF_KEYS[@]} + ${#INVALID_HF_KEYS[@]}) ))%
+          - 📊 **Health Score:** ${HEALTH_SCORE}%
           
           ## Actions Taken
           $(if [ ${#INVALID_HF_KEYS[@]} -gt 0 ]; then echo "- Removed ${#INVALID_HF_KEYS[@]} expired keys from Gist"; else echo "- No cleanup needed"; fi)

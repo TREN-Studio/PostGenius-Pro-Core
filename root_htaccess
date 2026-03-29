@@ -16,12 +16,16 @@ RewriteRule ^ - [L]
 # REACT SPA ROUTING
 # ============================================================================
 
-# If a directory or a file exists, serve it directly
+# Force Cache Busting on Generator page
+RewriteCond %{REQUEST_URI} ^/generator$ [OR]
+RewriteCond %{REQUEST_URI} ^/generator/$
+RewriteCond %{QUERY_STRING} !v=v2026
+RewriteRule ^(.*)$ /$1?v=v2026 [R=302,L]
+
+# Otherwise, redirect all requests to index.html for client-side routing
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
-
-# Otherwise, redirect all requests to index.html for client-side routing
 RewriteRule ^ index.html [QSA,L]
 
 # ============================================================================

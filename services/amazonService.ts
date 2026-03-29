@@ -48,7 +48,7 @@ const readAmazonCache = (allowStale = false): Record<string, { savedAt: number; 
                 }
                 return now - Number(value.savedAt || 0) <= AMAZON_CACHE_TTL_MS;
             })
-        );
+        ) as Record<string, { savedAt: number; payload: AmazonProductDetails }>;
     } catch {
         return {};
     }
@@ -712,16 +712,19 @@ const fetchExternalAmazonSearchCandidates = async (
     query: string
 ): Promise<Array<{ asin: string; url: string }>> => {
     const searchTargets = [
-        `https://www.bing.com/search?q=${encodeURIComponent(`site:amazon.com/dp ${query}`)}`,
-        `https://html.duckduckgo.com/html/?q=${encodeURIComponent(`site:amazon.com/dp ${query}`)}`,
+        { url: `https://r.jina.ai/https://html.duckduckgo.com/html/?q=${encodeURIComponent(`site:amazon.com/dp ${query}`)}`, useProxy: false },
+        { url: `https://r.jina.ai/https://www.bing.com/search?q=${encodeURIComponent(`site:amazon.com/dp ${query}`)}`, useProxy: false },
+        { url: `https://www.bing.com/search?q=${encodeURIComponent(`site:amazon.com/dp ${query}`)}`, useProxy: true },
+        { url: `https://html.duckduckgo.com/html/?q=${encodeURIComponent(`site:amazon.com/dp ${query}`)}`, useProxy: true },
     ];
 
     const candidates = new Map<string, string>();
     const errors: string[] = [];
 
-    for (const searchUrl of searchTargets) {
+    for (const target of searchTargets) {
         try {
-            const response = await fetch(getProxyEndpoint(searchUrl), {
+            const finalUrl = target.useProxy ? getProxyEndpoint(target.url) : target.url;
+            const response = await fetch(finalUrl, {
                 headers: {
                     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                     'Accept-Language': 'en-US,en;q=0.9',
@@ -731,13 +734,13 @@ const fetchExternalAmazonSearchCandidates = async (
             });
 
             if (!response.ok) {
-                errors.push(`external search ${searchUrl} failed with status ${response.status}`);
+                errors.push(`external search ${target.url} failed with status ${response.status}`);
                 continue;
             }
 
             const html = await response.text();
             if (!html || html.trim().length < 800) {
-                errors.push(`external search ${searchUrl} returned empty or too-short HTML`);
+                errors.push(`external search ${target.url} returned empty or too-short HTML`);
                 continue;
             }
 
@@ -755,7 +758,7 @@ const fetchExternalAmazonSearchCandidates = async (
                 break;
             }
         } catch (error: any) {
-            errors.push(`external search ${searchUrl} failed: ${error?.message || String(error)}`);
+            errors.push(`external search ${target.url} failed: ${error?.message || String(error)}`);
         }
     }
 
@@ -861,7 +864,13 @@ export const searchAmazonProductByKeyword = async (
         const externalCandidates = await fetchExternalAmazonSearchCandidates(query);
         for (const candidate of externalCandidates) {
             try {
-                const resolved = await getProductDetailsFromProxyScrape(candidate.asin, config);
+                let resolved = await getProductDetailsFromProxyScrape(candidate.asin, config).catch(() => null);
+                if (!resolved) {
+                    resolved = await getProductDetailsFromJina(candidate.asin, config);
+                }
+                
+                if (!resolved) continue;
+                
                 const resolvedTitle = cleanAmazonTitle(resolved.title || '');
                 const verifiedImage = (resolved.images || []).find(isUsableAmazonSearchImageUrl) || '';
                 if (!resolvedTitle || !verifiedImage) {
@@ -895,7 +904,7 @@ export const getProductDetailsFromJina = async (
     asin: string,
     config: AmazonConfig
 ): Promise<AmazonProductDetails> => {
-    const response = await fetch(`https://r.jina.ai/http://https://www.amazon.com/gp/aw/d/${encodeURIComponent(asin)}`, {
+    const response = await fetch(`https://r.jina.ai/https://www.amazon.com/dp/${encodeURIComponent(asin)}`, {
         headers: {
             'Accept': 'text/plain',
         },
@@ -1509,11 +1518,11 @@ export const searchProductsAndGetImages = async (
                 console.warn(`[Amazon PAAPI] Search failed for ${primaryQuery}: ${response.status}`);
                 try {
                     const fallback = await searchAmazonProductByKeyword(primaryQuery, config, options);
-                    const fallbackPrimary = (fallback.images || []).find(isUsableAmazonProductImageUrl) || '';
+                    const fallbackPrimary = (fallback.images || []).find(isUsableAmazonSearchImageUrl) || '';
                     if (fallbackPrimary) {
                         imageUrls[product.id] = {
                             primary: fallbackPrimary,
-                            variants: (fallback.images || []).filter(isUsableAmazonProductImageUrl).filter(url => url !== fallbackPrimary),
+                            variants: (fallback.images || []).filter(isUsableAmazonSearchImageUrl).filter(url => url !== fallbackPrimary),
                             url: fallback.url,
                         };
                     }
@@ -1552,11 +1561,11 @@ export const searchProductsAndGetImages = async (
             } else {
                 try {
                     const fallback = await searchAmazonProductByKeyword(primaryQuery, config, options);
-                    const fallbackPrimary = (fallback.images || []).find(isUsableAmazonProductImageUrl) || '';
+                    const fallbackPrimary = (fallback.images || []).find(isUsableAmazonSearchImageUrl) || '';
                     if (fallbackPrimary) {
                         imageUrls[product.id] = {
                             primary: fallbackPrimary,
-                            variants: (fallback.images || []).filter(isUsableAmazonProductImageUrl).filter(url => url !== fallbackPrimary),
+                            variants: (fallback.images || []).filter(isUsableAmazonSearchImageUrl).filter(url => url !== fallbackPrimary),
                             url: fallback.url,
                         };
                     }
